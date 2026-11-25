@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Number Land – Math Fun for Kids</title>
+<style>
+:root{--bg1:#ffe28a;--bg2:#9fe3ff;--card:rgba(255,255,255,.92);--tx:#2b2350;--mut:#6b6490;--line:#e3dcff;--c1:#ff6b6b;--c2:#4dabf7;--c3:#51cf66;--c4:#b265f0;--gold:#ffb300;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#3b2a7a;--bg2:#12385c;--card:rgba(32,28,66,.94);--tx:#fff;--mut:#b9b3e0;--line:#453d80}}
+:root[data-theme="dark"]{--bg1:#3b2a7a;--bg2:#12385c;--card:rgba(32,28,66,.94);--tx:#fff;--mut:#b9b3e0;--line:#453d80}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100%;color:var(--tx);font-family:ui-rounded,"Comic Sans MS","Chalkboard SE","Trebuchet MS",system-ui,sans-serif;background:transparent;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg1);z-index:10}
+#app{max-width:680px;margin:auto;padding:14px 14px 30px}
+.card{background:var(--card);border-radius:28px;padding:20px;box-shadow:0 8px 0 rgba(0,0,0,.12),0 18px 40px rgba(0,0,0,.15);animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.88) translateY(14px);opacity:0}to{transform:none;opacity:1}}
+h1{font-size:clamp(34px,9vw,52px);margin:4px 0;text-align:center;line-height:1.05;background:linear-gradient(90deg,var(--c1),var(--gold),var(--c3),var(--c2),var(--c4));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;margin:18px 0 8px;text-align:center}
+.fox{font-size:84px;text-align:center;animation:bob 2s ease-in-out infinite;display:block}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-4deg)}}
+.sub{text-align:center;color:var(--mut);margin:0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.opt,.big,.ans,.mini{font:inherit;color:#fff;border:0;border-radius:20px;cursor:pointer;font-weight:800;transition:transform .12s,box-shadow .12s,opacity .2s}
+.opt{background:var(--c4);padding:12px 8px;font-size:17px;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.opt.on{background:var(--gold);color:#3a2a00;transform:translateY(-3px) scale(1.04);box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.big{display:block;width:100%;margin-top:22px;padding:18px;font-size:26px;background:linear-gradient(135deg,var(--c3),#20c997);box-shadow:0 7px 0 rgba(0,0,0,.2)}
+.big:hover,.opt:hover{transform:translateY(-2px)}.big:active,.ans:active{transform:translateY(5px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.mini{background:var(--card);color:var(--tx);padding:9px 13px;font-size:18px;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.bar{flex:1;height:18px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.15)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c1),var(--gold),var(--c3));border-radius:12px;transition:width .5s}
+.pill{background:var(--card);border-radius:16px;padding:6px 12px;font-weight:800;white-space:nowrap}
+.q{text-align:center}.say{font-size:clamp(22px,5.5vw,30px);font-weight:800;margin:6px 0 10px}
+.vis{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center;font-size:clamp(28px,8vw,44px);min-height:58px;margin:6px 0}
+.vis span.g{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:2px;max-width:46%;padding:6px 10px;border:3px dashed var(--line);border-radius:18px}
+.vis .x{opacity:.25;filter:grayscale(1);text-decoration:line-through}.vis b{font-size:.9em;color:var(--c1)}
+.vis .e{animation:pop .35s both}
+.eq{font-size:clamp(46px,14vw,74px);font-weight:900;letter-spacing:2px;margin:4px 0 14px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.ans{font-size:clamp(36px,10vw,52px);padding:22px 8px;box-shadow:0 8px 0 rgba(0,0,0,.22)}
+.ans:nth-child(1){background:var(--c1)}.ans:nth-child(2){background:var(--c2)}.ans:nth-child(3){background:var(--c3)}.ans:nth-child(4){background:var(--c4)}
+.ans.ok{background:var(--gold)!important;color:#3a2a00;animation:jump .6s}.ans.no{opacity:.3;animation:shake .4s}.ans:disabled{cursor:default}
+@keyframes jump{30%{transform:translateY(-16px) scale(1.1)}60%{transform:scale(.97)}}
+@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.msg{text-align:center;font-size:20px;font-weight:800;min-height:34px;margin-top:14px}
+.stars{font-size:clamp(50px,15vw,80px);text-align:center;letter-spacing:6px}.stars s{text-decoration:none;display:inline-block;animation:pop .6s both}.stars .off{filter:grayscale(1);opacity:.25}
+.score{font-size:42px;font-weight:900;text-align:center}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.row2 .big{margin-top:16px;font-size:20px}.big.b{background:linear-gradient(135deg,var(--c2),#5c7cfa)}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:30}
+#fx i{position:absolute;top:-20px;font-style:normal;animation:fall 1.5s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.9}}
+#mute{position:fixed;right:12px;top:calc(10px + env(safe-area-inset-top,0px));z-index:11}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style></head><body>
+<button class="mini" id="mute" aria-label="Sound on or off">🔊</button>
+<div id="app"></div><div id="fx"></div>
+<script>
+const $=s=>document.querySelector(s);
+const r=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[r(0,a.length-1)];
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const EM=["🍎","🐟","⭐","🐥","🍪","🚗","🎈","🐞","🍓","🌼","🐸","🧁"];
+const CHEER=["Great job! 🎉","You’re a star! ⭐","Wow, so smart! 🧠","Awesome! 🚀","Super! 🌈","Yippee! 🥳","Fantastic! 🦄"];
+const OOPS=["Almost! Try again 💪","Oops! You can do it! 🌟","Have another go! 🦊"];
+const LV={1:{max:10,n:"⭐ Easy",a:"Ages 5–6",f:[2],mb:5,o:3},2:{max:20,n:"⭐⭐ Medium",a:"Ages 6–7",f:[2,5,10],mb:5,o:4},3:{max:20,n:"⭐⭐⭐ Super",a:"Ages 7–8",f:[2,3,4,5,10],mb:10,o:4}};
+const MODES={count:"🔢 Counting",add:"➕ Adding",sub:"➖ Taking away",mul:"✖️ Groups & times",mix:"🎲 Surprise mix"};
+const ROUND=10;let G={lv:1,mode:"add"},sfxOn=true,AC=null;
+try{const s=JSON.parse(localStorage.getItem("nl-set")||"{}");if(LV[s.lv])G.lv=s.lv;if(MODES[s.mode])G.mode=s.mode}catch(e){}
+
+/* sound */
+function tone(f,t,d,ty){if(!sfxOn)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=ty||"sine";o.frequency.value=f;g.gain.setValueAtTime(.18,AC.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+t+d);o.connect(g);g.connect(AC.destination);o.start(AC.currentTime+t);o.stop(AC.currentTime+t+d)}catch(e){}}
+const good=()=>[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.22));
+const bad=()=>{tone(220,0,.2,"triangle");tone(180,.12,.25,"triangle")};
+$("#mute").onclick=()=>{sfxOn=!sfxOn;$("#mute").textContent=sfxOn?"🔊":"🔇";if(!sfxOn&&window.speechSynthesis)speechSynthesis.cancel()};
+function speak(t){if(!sfxOn||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1.2;speechSynthesis.speak(u)}catch(e){}}
+function confetti(n){const f=$("#fx");for(let i=0;i<(n||36);i++){const e=document.createElement("i");e.textContent=pick(["🎉","⭐","✨","🌈","💖","🎈","🟡","🟣"]);e.style.left=r(0,100)+"vw";e.style.fontSize=r(18,34)+"px";e.style.animationDelay=Math.random()*.5+"s";e.style.animationDuration=1+Math.random()+"s";f.appendChild(e);setTimeout(()=>e.remove(),2600)}}
+
+/* screens */
+function home(){
+ $("#app").innerHTML=`<div class="card"><span class="fox">🦊</span><h1>Number Land</h1><p class="sub">Hi friend! Let’s play with numbers!</p>
+ <h2>How big are you?</h2><div class="opts">${Object.entries(LV).map(([k,v])=>`<button class="opt ${G.lv==k?"on":""}" data-lv="${k}">${v.n}<br><small>${v.a}</small></button>`).join("")}</div>
+ <h2>What shall we play?</h2><div class="opts">${Object.entries(MODES).map(([k,v])=>`<button class="opt ${G.mode===k?"on":""}" data-m="${k}">${v}</button>`).join("")}</div>
+ <button class="big" id="go">▶ Let’s Play!</button><p class="sub" id="best" style="margin-top:14px"></p></div>`;
+ best();
+}
+function best(){let b=0;try{b=+localStorage.getItem(`nl-best-${G.lv}-${G.mode}`)||0}catch(e){}const el=$("#best");if(el)el.textContent=b?`🏆 Your best here: ${b} / ${ROUND}`:"🏆 Can you get 10 out of 10?"}
+function save(){try{localStorage.setItem("nl-set",JSON.stringify({lv:G.lv,mode:G.mode}))}catch(e){}}
+function start(){G={...G,i:0,score:0,streak:0,done:0};next(true)}
+
+/* questions */
+const em=(n,e,c)=>Array.from({length:n},(_,i)=>`<span class="e ${c||""}" style="animation-delay:${i*40}ms">${e}</span>`).join("");
+function makeQ(){
+ const L=LV[G.lv],e=pick(EM);let m=G.mode;
+ if(m==="mix")m=pick(G.lv===1?["count","add","sub"]:["add","sub","mul","add","sub"]);
+ let q={m,say:"",eq:"",vis:"",ans:0};
+ if(m==="count"){const n=r(1,Math.min(L.max,12));q.ans=n;q.say="How many can you count?";q.vis=em(n,e);q.eq="";q.talk="How many can you count?"}
+ if(m==="add"){const a=r(1,L.max-1),b=r(1,L.max-a);q.ans=a+b;q.eq=`${a} + ${b} = ?`;q.say="Add them up!";q.talk=`${a} plus ${b} equals what?`;if(a+b<=10)q.vis=`<span class="g">${em(a,e)}</span><b>+</b><span class="g">${em(b,e)}</span>`}
+ if(m==="sub"){const a=r(2,L.max),b=r(1,a-1);q.ans=a-b;q.eq=`${a} − ${b} = ?`;q.say="Take some away!";q.talk=`${a} take away ${b} equals what?`;if(a<=10)q.vis=em(a-b,e)+em(b,e,"x")}
+ if(m==="mul"){const f=pick(L.f),b=r(1,L.mb);q.ans=f*b;q.eq=`${b} × ${f} = ?`;q.say=`${b} group${b>1?"s":""} of ${f}`;q.talk=`${b} times ${f} equals what?`;if(q.ans<=20)q.vis=Array.from({length:b},()=>`<span class="g">${em(f,e)}</span>`).join("")}
+ const s=new Set([q.ans]);while(s.size<L.o){const v=q.ans+r(-3,3);if(v>=0)s.add(v);else s.add(q.ans+r(1,4))}
+ q.opts=shuf([...s]);return q;
+}
+function next(first){
+ if(!first)G.i++;
+ if(G.i>=ROUND)return end();
+ G.q=makeQ();G.tries=0;G.locked=false;const q=G.q;
+ $("#app").innerHTML=`<div class="top"><button class="mini" id="back" aria-label="Home">🏠</button><div class="bar"><i style="width:${G.i/ROUND*100}%"></i></div><span class="pill">⭐ ${G.score}</span><span class="pill" id="stk">🔥 ${G.streak}</span></div>
+ <div class="card q"><div class="say">${q.say} <button class="mini" id="hear" aria-label="Read aloud">🗣️</button></div>
+ <div class="vis">${q.vis}</div>${q.eq?`<div class="eq">${q.eq}</div>`:""}
+ <div class="answers">${q.opts.map(v=>`<button class="ans" data-v="${v}">${v}</button>`).join("")}</div><div class="msg" id="msg">Question ${G.i+1} of ${ROUND}</div></div>`;
+ if(first)speak(q.talk);
+}
+function answer(btn){
+ if(G.locked)return;const v=+btn.dataset.v,q=G.q,msg=$("#msg");
+ if(v===q.ans){
+  G.locked=true;btn.classList.add("ok");good();confetti(G.tries?14:36);
+  if(!G.tries){G.score++;G.streak++}else G.streak=0;
+  msg.textContent=G.streak>=3?`🔥 ${G.streak} in a row! Amazing!`:pick(CHEER);
+  $("#stk").textContent="🔥 "+G.streak;setTimeout(next,1400);
+ }else{
+  G.tries++;G.streak=0;btn.classList.add("no");btn.disabled=true;bad();$("#stk").textContent="🔥 0";
+  if(G.tries>=2){G.locked=true;const c=[...document.querySelectorAll(".ans")].find(b=>+b.dataset.v===q.ans);c.classList.add("ok");msg.textContent=`It’s ${q.ans}! Next time! 💛`;setTimeout(next,2200)}
+  else msg.textContent=pick(OOPS);
+ }
+}
+function end(){
+ const s=G.score,st=s>=9?3:s>=6?2:1;let nb=false;
+ try{const k=`nl-best-${G.lv}-${G.mode}`,o=+localStorage.getItem(k)||0;if(s>o){localStorage.setItem(k,s);nb=o>0}}catch(e){}
+ $("#app").innerHTML=`<div class="card"><span class="fox">${st===3?"🦄":st===2?"🦊":"🐣"}</span><h1>${st===3?"Superstar!":st===2?"Well done!":"Good try!"}</h1>
+ <div class="stars">${[1,2,3].map(i=>`<s class="${i>st?"off":""}" style="animation-delay:${i*.25}s">⭐</s>`).join("")}</div>
+ <div class="score">${s} / ${ROUND}</div><p class="sub">${nb?"🏆 New best score!":st===3?"Perfect math power!":"Practice makes you stronger! 💪"}</p>
+ <div class="row2"><button class="big" id="again">🔄 Again</button><button class="big b" id="menu">🏠 Home</button></div></div>`;
+ good();confetti(st*25);speak(st===3?"Wow! You are a superstar!":"Great job!");
+}
+
+/* events */
+document.addEventListener("click",e=>{
+ const t=e.target.closest("button");if(!t)return;
+ if(t.dataset.lv){G.lv=+t.dataset.lv;save();tone(600,0,.1);return home()}
+ if(t.dataset.m){G.mode=t.dataset.m;save();tone(700,0,.1);return home()}
+ if(t.classList.contains("ans"))return answer(t);
+ if(t.id==="go"||t.id==="again"){save();tone(660,0,.12);return start()}
+ if(t.id==="menu"||t.id==="back"){if(window.speechSynthesis)speechSynthesis.cancel();return home()}
+ if(t.id==="hear")return speak(G.q.talk);
+});
+home();
+</script></body></html>
